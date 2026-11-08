@@ -17,7 +17,7 @@ Each run, prefer the cluster with the fewest posts so coverage grows evenly.
 1. `git pull` on `master`.
 2. Run `python3 tools/suggest_keywords.py` to refresh `keywords/ideas.txt` (Google Autocomplete long-tail ideas).
 3. **Daily keyword research (do this every run, with WebSearch / WebFetch):**
-   a. Shortlist 5 candidate keywords: unused ones from `keywords/keywords.tsv` (500–50,000 searches, Low competition)
+   a. Shortlist 5 **long-tail** candidate keywords (3+ words, e.g. "bear kaomoji copy and paste", "discord name fonts copy paste"): unused ones from `keywords/keywords.tsv` with **100–10,000 searches** and Low competition
       plus fresh long-tail phrases from `keywords/ideas.txt`, from the cluster with the fewest posts.
    b. For each candidate, web-search it and look at the top ~10 results. Score the opportunity:
       - **Easy** if the top results include forums (Reddit, Quora), thin generator pages, small blogs, or pages that don't match the search intent.
