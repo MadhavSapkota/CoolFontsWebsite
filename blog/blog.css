@@ -24,3 +24,9 @@
 .related a{color:var(--ink)!important;text-decoration:none!important}
 .related a:hover{color:var(--acc)!important}
 @media(max-width:640px){.top nav{display:none}.post{font-size:1rem}}
+.toc{font-size:.95rem;background:var(--soft);border-radius:16px;padding:14px 18px;line-height:2}
+.toc a{color:var(--acc);font-weight:600}
+.kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin:14px 0}
+.k{font:inherit;font-size:1rem;padding:12px 8px;border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.k:hover{border-color:var(--acc);background:var(--acc-soft)}
+.k.ok{background:var(--acc);color:#fff;border-color:var(--acc)}
