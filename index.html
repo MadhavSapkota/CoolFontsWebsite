@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CoolFonts — Fancy Text, Kaomoji & Symbols</title>
+<meta name="description" content="Generate cool fonts, fancy text, kaomojis, symbols and text art. Copy & paste into Instagram, TikTok, Discord, WhatsApp and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="marquee"><div class="track">𝓑𝓸𝓵𝓭 𝓢𝓬𝓻𝓲𝓹𝓽 ✦ 𝔊𝔬𝔱𝔥𝔦𝔠 ✦ ⓑⓤⓑⓑⓛⓔ ✦ ᴛɪɴʏ ᴄᴀᴘs ✦ 𝕯𝖔𝖚𝖇𝖑𝖊 ✦ 卂丂丨卂几 ✦ ｗｉｄｅ ✦ (◕‿◕✿) ✦ ʕ•ᴥ•ʔ ✦ ꧁༒☬ ☬༒꧂ ✦ 𝓑𝓸𝓵𝓭 𝓢𝓬𝓻𝓲𝓹𝓽 ✦ 𝔊𝔬𝔱𝔥𝔦𝔠 ✦ ⓑⓤⓑⓑⓛⓔ ✦ ᴛɪɴʏ ᴄᴀᴘs ✦ 𝕯𝖔𝖚𝖇𝖑𝖊 ✦ 卂丂丨卂几 ✦ ｗｉｄｅ ✦ (◕‿◕✿) ✦ ʕ•ᴥ•ʔ ✦ ꧁༒☬ ☬༒꧂ ✦</div></div>
+<header class="top">
+  <a class="logo" href="#"><span><i>Cool</i>fonts<sup>✦</sup></span></a>
+  <nav><a href="#fonts">Fonts</a><a href="#bio">Bio Maker</a><a href="#big">Big Letters</a><a href="#kaomoji">Kaomoji</a><a href="#symbols">Symbols</a><a href="#art">Text Art</a></nav>
+  <button id="sakura-btn" class="icon-btn" aria-label="Toggle sakura petals">🌸</button>
+  <button id="fly-btn" class="icon-btn" aria-label="Toggle butterflies">🦋</button>
+  <button id="theme" class="icon-btn" aria-label="Toggle theme">◐</button>
+  <a class="get-app" href="https://play.google.com/store/apps/details?id=com.sapkotamadhav.fonts.collections" target="_blank" rel="noopener">Get the App ↗</a>
+</header>
+
+<section class="hero">
+  <p class="eyebrow">N°1 — Font Generator</p>
+  <h1>Make your words <em>look</em> <span class="hl">extraordinary.</span></h1>
+  <p class="sub">Type below. Tap any style to copy. Paste anywhere — Instagram, TikTok, Discord, WhatsApp.</p>
+</section>
+
+<div class="input-wrap">
+  <div class="input-box">
+    <span class="lbl">✎</span>
+    <textarea id="input" rows="1" placeholder="✍️ Type your name or text here…" maxlength="300" autofocus></textarea>
+    <button id="clear" class="icon-btn" aria-label="Clear">✕</button>
+  </div>
+  <div class="try-row"><span>Try:</span><button class="try">Your Name</button><button class="try">Love you ♡</button><button class="try">Good vibes only</button><button class="try">Gamer</button><span class="hint">↓ results update as you type — tap any to copy</span></div>
+</div>
+
+<div class="layout">
+  <aside class="side">
+    <p class="side-h">Styles</p>
+    <div class="tabs" id="tabs"></div>
+    <p class="side-h">Explore</p>
+    <a class="side-link" href="#bio">Bio Maker <span>📱</span></a>
+    <a class="side-link" href="#big">Big Letters <span>★★</span></a>
+    <a class="side-link" href="#kaomoji">Kaomoji <span>(◕‿◕)</span></a>
+    <a class="side-link" href="#symbols">Symbols <span>✦</span></a>
+    <a class="side-link" href="#art">Text Art <span>ʕ•ᴥ•ʔ</span></a>
+    <a class="side-app" href="https://play.google.com/store/apps/details?id=com.sapkotamadhav.fonts.collections" target="_blank" rel="noopener"><b>Fonts Collections</b><small>Fancy fonts keyboard for Android</small><span>Google Play ↗</span></a>
+  </aside>
+
+  <main>
+    <section id="fonts" class="panel">
+      <div id="fav-wrap" hidden><h2>Favorites</h2><div id="favs" class="grid"></div></div>
+      <div id="results"></div>
+    </section>
+
+    <section id="bio" class="panel">
+      <div class="sec-head"><span class="num">✦</span><h2>Bio Maker</h2><p>Ready-made bios with fancy fonts & hashtags. Type your name above, then tap to copy.</p></div>
+      <div class="chips" id="bio-tabs"></div>
+      <div class="bio-rail"><div class="bio-track" id="bio-track"></div></div>
+      <div class="bio-rail rev"><div class="bio-track" id="bio-track2"></div></div>
+    </section>
+
+    <section id="big" class="panel">
+      <div class="sec-head"><span class="num">01</span><h2>Big Letter Art</h2><p>Your text drawn with stars, hearts, roses, animals, gods, babies, boys, girls & family.</p></div>
+      <div class="big-controls">
+        <div class="seg" id="big-size"><button data-s="big" class="on">Big</button><button data-s="small">Small</button></div>
+        <span class="big-note" id="big-note">Up to 8 letters</span>
+      </div>
+      <div class="chips" id="rel-chips"></div>
+      <div class="pick-box">
+        <label for="pick-in">Draw with your own symbol or kaomoji</label>
+        <div class="pick-row"><input id="pick-in" class="search" placeholder="Any symbol, kaomoji or mix… e.g. ✿  (◕‿◕)  🌸🌼🌺" maxlength="12"><span class="pick-prev" id="pick-prev"></span></div>
+        <div class="pick-group"><span>Symbols</span><div id="pick-sym"></div></div>
+        <div class="pick-group"><span>Kaomoji</span><div id="pick-kao"></div></div>
+      </div>
+      <p class="flower-h">Flower combinations</p>
+      <div class="chips" id="flower-chips"></div>
+      <div class="art-grid big-grid" id="bigs"></div>
+    </section>
+
+    <section id="kaomoji" class="panel">
+      <div class="sec-head"><span class="num">02</span><h2>Kaomoji</h2><p>Japanese emoticons, one tap to copy.</p></div>
+      <div class="chips" id="kao-tabs"></div>
+      <div class="kao-grid" id="kao"></div>
+    </section>
+
+    <section id="symbols" class="panel">
+      <div class="sec-head"><span class="num">03</span><h2>Symbols</h2><p>800+ Unicode symbols for bios & names.</p></div>
+      <input id="sym-search" class="search" placeholder="Search — hearts, arrows, stars…">
+      <div class="chips" id="sym-tabs"></div>
+      <div id="syms"></div>
+    </section>
+
+    <section id="art" class="panel">
+      <div class="sec-head"><span class="num">04</span><h2>Text Art</h2><p>Little pictures made of characters.</p></div>
+      <div class="art-grid" id="arts"></div>
+    </section>
+
+    <section class="app-cta" id="app">
+      <div>
+        <p class="eyebrow light">Android App</p>
+        <h2>Fonts in <em>every</em> app you use.</h2>
+        <p>Fonts Collections brings fancy text, kaomoji &amp; symbols straight into your keyboard.</p>
+        <a class="play" href="https://play.google.com/store/apps/details?id=com.sapkotamadhav.fonts.collections" target="_blank" rel="noopener">▶ Get it on Google Play</a>
+      </div>
+      <div class="phone"><div class="notch"></div>𝓗𝓮𝓵𝓵𝓸<br>ℍ𝕖𝕝𝕝𝕠<br>ⓗⓔⓛⓛⓞ<br>ʜᴇʟʟᴏ<br>(◕‿◕✿)</div>
+    </section>
+  </main>
+</div>
+
+<footer><span class="logo"><i>Cool</i>fonts</span><span>copy · paste · shine ✦</span></footer>
+<div id="toast">Copied</div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script src="sakura.js"></script>
+<script src="butterfly.js"></script>
+</body>
+</html>
