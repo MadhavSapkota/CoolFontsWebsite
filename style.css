@@ -1,5 +1,5 @@
-:root{--bg:#fff;--soft:#f6f5f2;--card:#fff;--ink:#111;--muted:#7a7770;--line:#ecebe7;--acc:#ff4d1c;--acc-soft:#fff1ec;--lime:#d9f66a}
-:root[data-theme=dark]{--bg:#0d0d0c;--soft:#171715;--card:#121211;--ink:#f4f2ec;--muted:#8d8a82;--line:#24231f;--acc-soft:#2a140c}
+:root{--bg:#fff;--soft:#f6f5f2;--card:#fff;--ink:#111;--muted:#7a7770;--line:#ecebe7;--acc:#b04cf5;--acc-soft:#f6eafe;--lime:#d9f66a}
+:root[data-theme=dark]{--bg:#0d0d0c;--soft:#171715;--card:#121211;--ink:#f4f2ec;--muted:#8d8a82;--line:#24231f;--acc-soft:#24122f}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;font-family:Manrope,system-ui,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
@@ -10,7 +10,7 @@ em,i{font-family:"Instrument Serif",serif;font-style:italic;font-weight:400}
 @keyframes scroll{to{transform:translateX(-50%)}}
 
 .top{display:flex;align-items:center;gap:14px;max-width:1320px;margin:auto;padding:18px 28px;border-bottom:1px solid var(--line)}
-.logo{font-weight:800;font-size:1.45rem;letter-spacing:-.04em}.logo i{font-size:1.15em;color:var(--acc);margin-right:1px}.logo sup{font-size:.55em;color:var(--acc)}
+.logo{font-weight:800;font-size:1.45rem;letter-spacing:-.04em}.logo i{font-size:1.15em;color:var(--acc);background:linear-gradient(135deg,#f97afc,#a043f5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;padding-right:2px;margin-right:1px}.logo sup{font-size:.55em;color:var(--acc)}
 nav{margin-left:auto;display:flex;gap:30px;font-weight:600;font-size:.9rem}
 nav a{position:relative}nav a::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:0;background:var(--acc);transition:.25s}nav a:hover::after{width:100%}
 .icon-btn{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:50%;width:40px;height:40px;cursor:pointer;font-size:1rem;flex:none}
@@ -188,3 +188,4 @@ footer .logo-img{width:28px;height:28px;border-radius:8px}
 #sakura{position:absolute;top:0;left:0;pointer-events:none;z-index:50}
 #sakura-btn{opacity:.45}#sakura-btn.on{opacity:1;background:#fff0f5;border-color:#f7b6cc}
 :root[data-theme=dark] #sakura-btn.on{background:#3a1b28}
+

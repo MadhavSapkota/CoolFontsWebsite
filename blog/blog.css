@@ -1,0 +1,26 @@
+.blog-hero{max-width:860px;margin:auto;padding:72px 24px 32px;text-align:center}
+.blog-hero h1{font-size:clamp(2.2rem,5vw,3.8rem);letter-spacing:-.05em;line-height:1.02;margin:10px 0 14px;font-weight:800}
+.blog-hero em{color:var(--acc)}
+.blog-hero .sub{color:var(--muted);font-size:1.1rem;margin:0}
+.b-grid{max-width:1100px;margin:0 auto 80px;padding:0 24px;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.b-card{display:flex;flex-direction:column;gap:10px;border:1px solid var(--line);border-radius:24px;padding:28px;background:var(--card);transition:transform .2s,border-color .2s}
+.b-card:hover{transform:translateY(-3px);border-color:var(--acc)}
+.b-card h2{font-size:1.3rem;letter-spacing:-.03em;line-height:1.2;margin:0}
+.b-card p{color:var(--muted);margin:0;line-height:1.55;flex:1}
+.b-card .more{color:var(--acc);font-weight:700}
+.post{max-width:720px;margin:auto;padding:48px 20px 80px;font-size:1.08rem;line-height:1.75}
+.post .back{color:var(--muted);font-weight:600;font-size:.9rem}
+.post h1{font-size:clamp(2rem,4.5vw,3rem);letter-spacing:-.04em;line-height:1.08;margin:12px 0 8px;font-weight:800}
+.post .meta{color:var(--muted);font-size:.9rem;margin:0 0 32px}
+.post h2{font-size:1.55rem;letter-spacing:-.03em;margin:44px 0 10px;line-height:1.2}
+.post h3{font-size:1.2rem;margin:28px 0 6px}
+.post p a,.post li a{color:var(--acc);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.post ul,.post ol{padding-left:1.3em}.post li{margin:6px 0}
+.post-cta{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:48px 0;padding:24px;border-radius:24px;background:var(--acc-soft);border:1px solid var(--line)}
+.post-cta img{border-radius:16px}
+.post-cta div{flex:1;min-width:200px}.post-cta p{margin:4px 0 0;font-size:.95rem;color:var(--muted);line-height:1.5}
+.post-cta>a{background:linear-gradient(135deg,#f97afc,#a043f5);color:#fff;font-weight:700;padding:12px 20px;border-radius:999px;white-space:nowrap}
+.related{border-top:1px solid var(--line);padding-top:8px}
+.related a{color:var(--ink)!important;text-decoration:none!important}
+.related a:hover{color:var(--acc)!important}
+@media(max-width:640px){.top nav{display:none}.post{font-size:1rem}}
