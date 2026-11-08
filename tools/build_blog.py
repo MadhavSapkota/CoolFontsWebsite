@@ -67,7 +67,7 @@ idx = f"""<section class="blog-hero"><p class="eyebrow">The Cool Fonts Blog</p><
 <main class="b-grid">{cards}</main>"""
 ld = {"@context":"https://schema.org","@type":"Blog","name":"Cool Fonts Blog","url":f"{SITE}/blog/",
       "blogPost":[{"@type":"BlogPosting","headline":p['title'],"url":f"{SITE}/blog/{p['slug']}.html","datePublished":p["date"]} for p in POSTS]}
-open(os.path.join(ROOT,"blog","index.html"),"w").write(page("Blog — Cool Fonts Tips, Instagram Bio Fonts & Kaomoji","Guides on fancy fonts, Instagram bio fonts, kaomoji and fixing fonts that show as boxes — plus how to type cool fonts in any app on Android.",f"{SITE}/blog/",idx,ld))
+open(os.path.join(ROOT,"blog","index.html"),"w").write(page("Cool Fonts Blog — Kaomoji, Discord Fonts, Aesthetic Text & Symbols","Free guides to cool fonts, kaomoji, Discord fonts, aesthetic text and symbols — copy and paste, or type them in any app on Android with Cool Fonts Keyboard.",f"{SITE}/blog/",idx,ld))
 
 urls = [(f"{SITE}/", DATE), (f"{SITE}/blog/", DATE)] + [(f"{SITE}/blog/{p['slug']}.html", p["date"]) for p in POSTS]
 open(os.path.join(ROOT,"sitemap.xml"),"w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{u}</loc><lastmod>{d}</lastmod></url>\n" for u, d in urls) + "</urlset>\n")
