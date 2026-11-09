@@ -20,7 +20,7 @@
 .post-cta{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:48px 0;padding:24px;border-radius:24px;background:var(--acc-soft);border:1px solid var(--line)}
 .post-cta img{border-radius:16px}
 .post-cta div{flex:1;min-width:200px}.post-cta p{margin:4px 0 0;font-size:.95rem;color:var(--muted);line-height:1.5}
-.post-cta>a{background:linear-gradient(135deg,#f97afc,#a043f5);color:#fff;font-weight:700;padding:12px 20px;border-radius:999px;white-space:nowrap}
+.post-cta>a{background:linear-gradient(135deg,#c026d3,#7c3aed);color:#fff;font-weight:700;padding:12px 20px;border-radius:999px;white-space:nowrap}
 .related{border-top:1px solid var(--line);padding-top:8px}
 .related a{color:var(--ink)!important;text-decoration:none!important}
 .related a:hover{color:var(--acc)!important}
@@ -30,10 +30,10 @@
 .kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin:14px 0}
 .k{font:inherit;font-size:1rem;padding:12px 8px;border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .k:hover{border-color:var(--acc);background:var(--acc-soft)}
-.k.ok{background:var(--acc);color:#fff;border-color:var(--acc)}
+.k.ok{background:var(--acc);color:var(--on-acc);border-color:var(--acc)}
 .inline-cta{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:32px 0;padding:18px 20px;border-radius:18px;background:var(--acc-soft);border:1px solid var(--line)}
 .inline-cta p{margin:0;flex:1;min-width:200px;font-size:.98rem}
-.cta{background:linear-gradient(135deg,#f97afc,#a043f5);color:#fff!important;font-weight:700;padding:12px 20px;border-radius:999px;white-space:nowrap;text-decoration:none!important}
+.cta{background:linear-gradient(135deg,#c026d3,#7c3aed);color:#fff!important;font-weight:700;padding:12px 20px;border-radius:999px;white-space:nowrap;text-decoration:none!important}
 .faq details{border-bottom:1px solid var(--line);padding:12px 0}.faq summary{font-weight:700;cursor:pointer}.faq p{margin:8px 0 0}
 .small{font-size:.9rem;color:var(--muted)}
 
@@ -46,5 +46,5 @@
 .tool-name{display:block;font-size:.75rem;color:var(--muted)}
 .tool-text{display:block;overflow-wrap:anywhere;line-height:1.5}
 .tool-copy,.tool-tab{font:inherit;font-size:.9rem;font-weight:700;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--acc-soft);color:var(--ink);cursor:pointer;white-space:nowrap}
-.tool-copy.ok,.tool-tab.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.tool-copy.ok,.tool-tab.on{background:var(--acc);border-color:var(--acc);color:var(--on-acc)}
 .tool-tabs{display:flex;flex-wrap:wrap;gap:6px}
