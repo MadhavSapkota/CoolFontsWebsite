@@ -48,3 +48,15 @@
 .tool-copy,.tool-tab{font:inherit;font-size:.9rem;font-weight:700;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--acc-soft);color:var(--ink);cursor:pointer;white-space:nowrap}
 .tool-copy.ok,.tool-tab.on{background:var(--acc);border-color:var(--acc);color:var(--on-acc)}
 .tool-tabs{display:flex;flex-wrap:wrap;gap:6px}
+
+/* Site-wide editorial system */
+.blog-hero h1,.post h1{font-weight:700;letter-spacing:-.02em;line-height:1.12}
+.post h2{letter-spacing:-.02em;font-weight:700}
+.b-card h2{font-weight:700}
+.post-cta,.inline-cta{border-radius:12px}
+.post-cta>a,.cta{background:var(--action);color:var(--on-action)!important}
+.post-cta>a:hover,.cta:hover{background:var(--ink);color:var(--bg)!important}
+.tool{border-radius:12px;background:var(--card)}
+.tool-input{background:var(--bg)}
+.toc{border-radius:8px}
+.k{border-radius:8px}
