@@ -16,25 +16,26 @@ Each run, prefer the cluster with the fewest posts so coverage grows evenly.
 ## Steps
 1. `git pull` on `master`.
 2. Run `python3 tools/suggest_keywords.py` to refresh `keywords/ideas.txt` (Google Autocomplete long-tail ideas).
+   **Keyword source:** if `GOOGLE_ADS_REFRESH_TOKEN` is set, run `python3 tools/ads_keywords.py` to refresh `keywords/live_keywords.tsv` from Keyword Planner and use that file; if the script exits non-zero, **stop: do not publish a post**, and report its error. If the variable is not set, use the saved Keyword Planner export `keywords/keywords.tsv` and say so in the research file.
 3. **Daily keyword research (do this every run, with WebSearch / WebFetch):**
-   a. Shortlist 5 **long-tail** candidate keywords (3+ words, e.g. "bear kaomoji copy and paste", "discord name fonts copy paste"): unused ones from `keywords/keywords.tsv` with **100–10,000 searches** and Low competition
+   a. From the keyword source, keep long-tail keywords (3+ words, e.g. "bear kaomoji copy and paste") with **100–10,000 searches** and Low competition that are not in `keywords/used.txt` and don't have the same search intent as a published post ("cool letter fonts" and "letter fonts cool" are one topic). Sort by searches, highest first, and shortlist the top 5
       plus fresh long-tail phrases from `keywords/ideas.txt`, from the cluster with the fewest posts.
    b. For each candidate, web-search it and look at the top ~10 results. Score the opportunity:
       - **Easy** if the top results include forums (Reddit, Quora), thin generator pages, small blogs, or pages that don't match the search intent.
       - **Hard** if the top results are all big authority sites with in-depth guides.
       - Note the search intent (copy-paste list? how-to? app search? comparison?) and what the top pages are missing.
-   c. Pick the ONE candidate with the best mix of search volume, easy competition and relevance to the app.
+   c. Pick the **highest-search** candidate on the shortlist that is relevant to the app and not scored Hard. If all 5 are Hard, take the highest-search one.
    d. Save the analysis to `keywords/research/<YYYY-MM-DD>.md`: the candidates, their volume (or "no data"),
       the competition notes, the pick and why, and an outline that beats the current top results
       (more examples, clearer steps, better FAQ, answers the gaps).
-   e. If live search is unavailable, pick from `keywords/keywords.tsv` by volume and competition and say so in the research file.
+   e. If web search is unavailable, take the highest-search shortlisted keyword and say so in the research file.
 4. Write the post following the research outline as `blog/posts/<slug>.json` with fields:
-   `slug, title, desc, tag, read, date (YYYY-MM-DD, today), keyword, body` — same format as `blog/posts/kaomoji-copy-and-paste.json`.
+   `slug, title, desc, tag, read (minutes, number), date (YYYY-MM-DD, today), keyword, body (HTML string; no h1, start with the intro paragraph)`. Create `blog/posts/` if missing.
    - Structure: the reader's goal → useful, specific content (copyable examples in `<div class="kgrid"><button class="k" type="button">…</button></div>` grids when it fits) → the **problem with the usual way** (copy-paste websites, switching apps, boxes/broken symbols, no preview) → **Cool Fonts Keyboard as the solution** (link `href="PLAY"`) → short FAQ using long-tail phrases from `keywords/ideas.txt`.
    - Put the target keyword in the title, description, first paragraph and one H2. Use 3–6 related long-tail phrases naturally in H2s/FAQ.
    - 700–1200 words. Genuinely useful; no keyword stuffing; no made-up statistics, reviews, or app features.
    - App facts you may state: Android keyboard; 1000+ fonts, emojis and kaomoji; Cute / Aesthetic / Gamer / Kaomoji tabs; works in any app with no copy and paste.
-   - Link to an existing post with a relative link (`<slug>.html`) and to `../#fonts` or `../#kaomoji` where relevant.
+   - If another post exists, link to one with a relative link (`<slug>.html`) and to `../#fonts` or `../#kaomoji` where relevant.
    - Count any "N+" claim in the title and make it true.
 5. Run `python3 tools/build_blog.py` — it rebuilds every post page, `blog/index.html` and `sitemap.xml`.
 6. Verify: the new HTML file exists, has the keyword in `<title>`, and no literal `PLAY` href remains.
