@@ -72,6 +72,14 @@ jobs:
             python -m seo_agent.main run $args
           fi
 
+      # Never publish from old data: a Keyword Planner failure publishes nothing and fails this run visibly.
+      - name: Fail if Keyword Planner was unavailable
+        run: |
+          if grep -q "Keyword Planner unavailable" "seo-agent/data/reports/$(date -u +%F).md" 2>/dev/null; then
+            echo "::error::Keyword Planner failed. Nothing was published. See the report."
+            exit 1
+          fi
+
       # Publishing only ever happens from master. On any other branch the run is forced to behave like a dry run
       # after the agent step: no commit, no push, no deploy.
       - name: Validate site (build test)
@@ -104,7 +112,7 @@ jobs:
         if: ${{ steps.commit.outputs.changed == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh api -X POST "repos/${GITHUB_REPOSITORY}/pages/builds"
+        run: gh api -X POST "repos/${GITHUB_REPOSITORY}/pages/builds" || echo "::warning::Pages build request failed; relying on the push build. Verify step will confirm."
 
       # Confirms today's new/updated article URLs are live (HTTP 200 + correct canonical) after the Pages deploy.
       # Bounded polling with backoff (max 15 min). This checks deployment only; it never claims Google indexing.

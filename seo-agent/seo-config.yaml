@@ -111,7 +111,7 @@ features:
     mix: 20
     phrases: [font generator, fonts generator, text generator, fancy text generator, cursive font, cursive fonts, aesthetic font, aesthetic fonts, bold text, bold font, bubble text, bubble letters, bubble font, tiny text, small text, small caps, gothic font, gothic text, glitch text, zalgo text, upside down text, fancy text, fancy font, fancy fonts, stylish text, stylish font, stylish fonts, cool font, cool fonts, cool text, cool letters, letter fonts]
     terms: [cursive, aesthetic, gothic, glitch, zalgo, stylish, fancy, font, fonts]
-    seeds: [cursive fonts copy and paste, aesthetic fonts copy and paste, bubble letters copy and paste, tiny text generator, gothic text, fancy text generator]
+    seeds: [font generator, fancy text generator, cursive fonts copy and paste, aesthetic fonts copy and paste, bubble letters copy and paste, tiny text generator, gothic text, fancy text generator]
     cta: {button: "Get Cool Fonts Keyboard", text: "Type in 1000+ fonts, emojis and kaomoji in any app, with no copy and paste."}
   symbols:
     label: "Symbols and text art"

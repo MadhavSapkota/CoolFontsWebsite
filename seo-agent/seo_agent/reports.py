@@ -213,11 +213,12 @@ def verify(cfg: Config, state: State, wait: int = 600, paths: list[str] | None =
         for u in list(pending):
             try:
                 r = requests.get(u, timeout=20, headers={"User-Agent": "seo-agent-deploy-check"})
-                if r.status_code == 200 and f'rel="canonical" href="{u}"' in r.text:
+                sm = requests.get(f"{cfg.base_url}/sitemap.xml", timeout=20, headers={"User-Agent": "seo-agent-deploy-check"})
+                if r.status_code == 200 and f'rel="canonical" href="{u}"' in r.text and u in sm.text:
                     log.info("verify: live %s", u)
                     pending.pop(u)
                 else:
-                    pending[u] = f"HTTP {r.status_code}" + ("" if r.status_code != 200 else " (canonical not found yet)")
+                    pending[u] = f"HTTP {r.status_code}" + ("" if r.status_code != 200 else " (canonical or sitemap entry not found yet)")
             except requests.RequestException as e:
                 pending[u] = type(e).__name__
         if pending:
