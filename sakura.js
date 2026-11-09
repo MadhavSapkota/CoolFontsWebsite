@@ -5,8 +5,8 @@
   document.body.appendChild(c);
   const ctx = c.getContext("2d");
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let on = true;
-  try { on = localStorage.getItem("sakura") !== "off"; } catch {}
+  let on = false; // off until the visitor turns it on
+  try { on = localStorage.getItem("sakura") === "on"; } catch {}
   if (reduce) on = false;
   let W, H, dpr, petals = [];
   const COLORS = ["#ffc4d6", "#ffb3c8", "#ffd6e2", "#f9a8c2", "#ffe0ea"];
