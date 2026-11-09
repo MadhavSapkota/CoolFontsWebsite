@@ -116,6 +116,8 @@ def order_by_cluster(cands: list[dict[str, Any]], articles: dict[str, Any], cfg:
     """Highest total score first, plus a small editorial-mix boost for under-covered features (scoring.mix_boost)."""
     for i in cands:
         i["mix_boost"] = scoring.mix_boost(cfg, i.get("feature", ""), articles) if cfg else 0.0
+    if cfg and cfg.get("keyword_research.rank_by") == "volume":
+        return sorted(cands, key=lambda i: (-(i.get("volume") or 0), -(i.get("score_total") or i.get("opportunity_estimate") or 0)))
     return sorted(cands, key=lambda i: (-((i.get("score_total") or i.get("opportunity_estimate") or 0) + i["mix_boost"]),
                                         -(i.get("volume") or 0)))
 
