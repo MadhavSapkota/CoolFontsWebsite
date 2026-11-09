@@ -1,0 +1,18 @@
+# Ground truth about the app. The content generator may ONLY describe these features.
+# Edit when the app changes. Source: the site's homepage copy and AUTOMATION.md.
+app_name_on_play: "Cool Fonts Keyboard"
+brand: "Cool Fonts Keyboard"
+platforms: "Android, on Google Play."
+features:
+  - "An Android keyboard with 1000+ fonts, emojis and kaomoji."
+  - "Cute, Aesthetic, Gamer and Kaomoji tabs."
+  - "Type styled text and kaomoji in any app, with no copy and paste."
+not_offered_do_not_claim:
+  - "An iOS / iPhone version"
+  - "Any price, that the app is free, or anything about ads or in-app purchases (not confirmed)"
+  - "Any privacy promise or statement about what data the keyboard does or does not collect (not confirmed)"
+  - "Installing real system fonts or changing the phone's system font"
+  - "Styled text displaying correctly on every device or app"
+  - "Affiliation with or endorsement by Instagram, Discord, TikTok, WhatsApp, Snapchat, Roblox or any other brand"
+  - "Any rating, download count, award, press coverage, testimonial, user statistic or study"
+  - "Any app screen, menu, setting or workflow not listed in features"

@@ -30,3 +30,8 @@
 .k{font:inherit;font-size:1rem;padding:12px 8px;border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .k:hover{border-color:var(--acc);background:var(--acc-soft)}
 .k.ok{background:var(--acc);color:#fff;border-color:var(--acc)}
+.inline-cta{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:32px 0;padding:18px 20px;border-radius:18px;background:var(--acc-soft);border:1px solid var(--line)}
+.inline-cta p{margin:0;flex:1;min-width:200px;font-size:.98rem}
+.cta{background:linear-gradient(135deg,#f97afc,#a043f5);color:#fff!important;font-weight:700;padding:12px 20px;border-radius:999px;white-space:nowrap;text-decoration:none!important}
+.faq details{border-bottom:1px solid var(--line);padding:12px 0}.faq summary{font-weight:700;cursor:pointer}.faq p{margin:8px 0 0}
+.small{font-size:.9rem;color:var(--muted)}

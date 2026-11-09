@@ -1,0 +1,3 @@
+# GitHub Pages uses Jekyll to copy this static site. Keep the SEO automation out of the published website.
+exclude:
+  - seo-agent

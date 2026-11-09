@@ -1,0 +1,181 @@
+# Editable configuration for the daily SEO agent (seo_agent/).
+project:
+  name: "Cool Fonts Keyboard"
+  brand_on_site: "Cool Fonts Keyboard"
+  app_url: "https://play.google.com/store/apps/details?id=com.sapkotamadhav.fonts.collections"
+
+site:
+  base_url: "https://coolfontskeyboard.app"   # no trailing slash
+  domain: "coolfontskeyboard.app"
+  root_dir: "."                              # repo folder served by GitHub Pages
+  blog_dir: "blog"
+  # Hand-built pages listed in the sitemap. The agent never rewrites their layout.
+  static_pages: ["index.html", "privacy.html"]
+  exclude_from_audit: []
+  # Queries a hand-built page already satisfies.
+  page_targets:
+    index.html: [cool fonts keyboard, cool fonts app, coolfonts keyboard]
+  static_meta: {}
+
+schedule:
+  frequency: daily
+
+keyword_research:
+  source: google_ads_keyword_planner        # or: dataforseo_labs (labeled alternative)
+  fallback_source: ""                       # "dataforseo_labs" = paid alternative if Google Ads fails; "" disables
+  # Organic difficulty source:
+  #   none       -> LOW-COST mode (default). Keyword Planner has NO organic difficulty, so none is reported.
+  #                 A clearly labeled heuristic "opportunity estimate" (0-100) is computed from real evidence:
+  #                 long-tail length, question format, verified volume band, relevance, Search Console rankings.
+  #   dataforseo -> paid: measured organic keyword difficulty + live top-10 SERP.
+  organic_difficulty_source: none
+  # Legacy single-number threshold; still applied to editorial topics. Regular keywords use `scoring:` below.
+  min_opportunity_estimate: 50
+  # Search Console queries with no verified volume are allowed only with this much real demand evidence:
+  min_gsc_impressions_if_volume_unverified: 999999   # effectively off: verified Keyword Planner volume required
+  # When NO volume source works (no Google Ads, no Search Console data yet), Claude proposes long-tail
+  # question topics from the seeds. They are labeled "volume unverified"; no metrics are invented.
+  # All relevance, duplicate and quality-gate checks still apply. Set enabled: false to require verified data.
+  unverified_topics:
+    enabled: false                 # OFF: verified data sources only (owner's choice)
+    min_opportunity_estimate: 40   # needs 5+ words, question format, and app relevance
+  max_candidates_per_run: 4          # each candidate costs 3 Claude calls + 2 per revision
+  # Duplicate intent: a keyword is skipped when a published article's target/secondary query overlaps this much
+  # (token Jaccard). Any feature: cluster_duplicate_overlap. Same feature: same_feature_overlap (stricter).
+  cluster_duplicate_overlap: 0.6
+  same_feature_overlap: 0.5
+  # Google Trends: no official API exists, so it is intentionally not used (unofficial scrapers break ToS/reliability).
+  minimum_monthly_searches: 1000   # owner's rule: 1,000+ searches, no upper limit
+  require_low_ads_competition: true  # owner's rule: Keyword Planner competition must be Low
+  rank_by: volume                  # highest verified search volume first
+  maximum_organic_difficulty: 25   # applies when organic_difficulty_source: dataforseo
+  language: en
+  language_constant: "languageConstants/1000"   # Google Ads: English
+  location: US
+  location_code: 2840                           # Google Ads geo target / DataForSEO location (United States)
+  # Keyword Planner is queried once PER FEATURE, so broad seeds cannot crowd out other features.
+  max_ideas_per_run: 150
+  allowed_intents: ["informational", "commercial"]
+  # Extra general seeds (in addition to every feature's seeds below).
+  seed_keywords:
+    - font keyboard
+    - copy and paste fonts
+  # Relevance comes from the `features:` map below (a keyword must match a product feature).
+  blocked_terms: [porn, nude, nsfw, sexy, casino, crack, hack, cheat, torrent, apk download, mod apk, nazi, swastika, ss bolts,
+                  kkk, impersonat, fake, scam, dafont, font download, ttf, otf, photoshop, canva, cricut, tattoo]
+
+# --------------------------------------------------------------------------------------------------------------
+# Five-component keyword score (0-100 each). A transparent HEURISTIC to rank topics, NOT a Google ranking formula
+# and NOT keyword difficulty. Every component and its evidence is stored in state.json and printed in reports.
+scoring:
+  weights: {feature_relevance: 0.30, ranking_opportunity: 0.25, search_demand: 0.15,
+            conversion_potential: 0.20, content_usefulness: 0.10}
+  min_total: 50                  # tested 40 / 45 / 50 on stored keywords (python -m seo_agent.main rescore): identical
+                                 # results after the gates, so the stricter 50 is used; lower to 45 only if runs starve
+  min_feature_relevance: 60      # needs a feature phrase or 2+ feature words; one loose word (55) is not enough
+  min_ranking_opportunity: 0     # skips head terms a new domain cannot realistically rank for
+  mix_boost_max: 5               # ranking points for features below their editorial-mix target
+  mix_penalty_max: 10            # ranking points removed from features far above their target (topic diversity)
+
+# Product features. Every keyword is classified into exactly one (highest relevance; ties -> listed first).
+#   phrases: strong matches (relevance 95)  terms: single words (relevance 55, +15 per extra hit, max 85)
+#   conversion: base app-install potential 0-100   mix: editorial-mix target in % (flexible)
+features:
+  kaomoji:
+    label: "Kaomoji and text faces"
+    conversion: 80
+    mix: 25
+    phrases: [kaomoji, text faces, text face, japanese emoticons, japanese emoticon, kawaii faces, kawaii face, lenny face, shrug emoticon, cute emoticons, emoticons copy]
+    terms: [emoticon, emoticons, kawaii]
+    seeds: [kaomoji copy and paste, cute kaomoji, bear kaomoji, cat kaomoji, how to type kaomoji, text faces copy and paste, japanese emoticons]
+    cta: {button: "Get Kaomoji on Your Keyboard", text: "Type kaomoji straight from your Android keyboard, in any app, with no copy and paste."}
+  social-fonts:
+    label: "Fonts for social apps"
+    conversion: 80
+    mix: 20
+    phrases: [instagram font, instagram fonts, fonts for instagram, instagram bio, tiktok font, tiktok fonts, fonts for tiktok, tiktok bio, whatsapp font, whatsapp fonts, fonts for whatsapp, snapchat font, snapchat fonts, facebook font, facebook fonts]
+    terms: [instagram, tiktok, whatsapp, snapchat, bio]
+    seeds: [instagram bio fonts, fonts for instagram captions, tiktok bio fonts, whatsapp fonts, snapchat fonts]
+    cta: {button: "Type Fancy Text in Any App", text: "Type styled text directly in your favorite apps from your Android keyboard, with no copy and paste."}
+  gaming-names:
+    label: "Discord and gaming names"
+    conversion: 80
+    mix: 15
+    phrases: [discord font, discord fonts, discord name, discord text, roblox font, roblox fonts, roblox name, gamer font, gamer fonts, gaming font, gaming fonts, gamertag, free fire name, pubg name, fortnite name]
+    terms: [discord, roblox, gamer, gaming, gamertag]
+    seeds: [discord name fonts, discord font generator, roblox name fonts, gamer fonts copy and paste, gaming name fonts]
+    cta: {button: "Get Gamer Fonts on Your Keyboard", text: "Find gamer-style text on the Gamer tab and type it in any app on Android."}
+  font-styles:
+    label: "Font and text styles"
+    conversion: 65
+    mix: 20
+    phrases: [font generator, fonts generator, text generator, fancy text generator, cursive font, cursive fonts, aesthetic font, aesthetic fonts, bold text, bold font, bubble text, bubble letters, bubble font, tiny text, small text, small caps, gothic font, gothic text, glitch text, zalgo text, upside down text, fancy text, fancy font, fancy fonts, stylish text, stylish font, stylish fonts, cool font, cool fonts, cool text, cool letters, letter fonts]
+    terms: [cursive, aesthetic, gothic, glitch, zalgo, stylish, fancy, font, fonts]
+    seeds: [cursive fonts copy and paste, aesthetic fonts copy and paste, bubble letters copy and paste, tiny text generator, gothic text, fancy text generator]
+    cta: {button: "Get Cool Fonts Keyboard", text: "Type in 1000+ fonts, emojis and kaomoji in any app, with no copy and paste."}
+  symbols:
+    label: "Symbols and text art"
+    conversion: 55
+    mix: 10
+    phrases: [cool symbols, cute symbols, aesthetic symbols, text symbols, heart symbol, heart symbols, star symbol, star symbols, arrow symbols, sparkle symbol, text art, ascii art, emoji art, text borders]
+    terms: [symbol, symbols, sparkles, borders]
+    seeds: [cute symbols copy and paste, aesthetic symbols, heart symbols, text art copy and paste, star symbols]
+    cta: {button: "Get Cool Fonts Keyboard", text: "Type in 1000+ fonts, emojis and kaomoji in any app, with no copy and paste."}
+  comparisons:
+    label: "Keyboard app comparisons"
+    conversion: 95
+    mix: 2
+    phrases: [best font keyboard, best fonts keyboard, best keyboard app, best keyboard apps, font keyboard apps, best font app, best fonts app, copy paste vs]
+    terms: []
+    seeds: [best font keyboard apps for android, best keyboard apps for fonts, best fancy text keyboard]
+    cta: {button: "Try Cool Fonts Keyboard", text: "Type in 1000+ fonts, emojis and kaomoji in any app, with no copy and paste."}
+  keyboard-howto:
+    label: "Font keyboards and how-to guides"
+    conversion: 95
+    mix: 8
+    phrases: [font keyboard, fonts keyboard, keyboard fonts, keyboard font, change font on android, change keyboard font, type in different fonts, type fonts, without copy and paste, fonts showing as boxes, font showing boxes, stylish keyboard, fancy keyboard, kaomoji keyboard]
+    terms: [keyboard, keyboards]
+    seeds: [font keyboard for android, how to change keyboard font on android, fancy fonts keyboard, stylish keyboard app, fonts showing as boxes]
+    cta: {button: "Get the Font Keyboard", text: "Add 1000+ fonts, emojis and kaomoji to your Android keyboard and type them in any app."}
+
+content:
+  provider: anthropic
+  model: "claude-sonnet-5-5"        # writer/planner (Claude Sonnet 5.5)
+  review_model: "claude-sonnet-5-5" # independent reviewer
+  min_words: 900
+  max_words: 2200
+  max_keyword_density_percent: 2.5
+  max_similarity_to_existing: 0.45   # 0..1 shingle similarity; above this = near-duplicate
+  # Duplicate prevention is INTENT-based (seo_agent/intent.py): same feature + same intent type (tool vs informational)
+  # + strong normalized overlap. Shared words with a landing page or article never block a keyword on their own.
+  max_revisions: 3                   # rejected drafts are rewritten with the reviewer's exact feedback, then re-reviewed
+
+publishing:
+  automatic: true
+  max_new_articles_per_day: 1        # at most ONE quality article per day; none when nothing qualifies
+  update_existing_pages: true
+  require_quality_gate: true
+  max_page_updates_per_day: 2
+
+limits:                               # spending guardrails (checked before every Claude call)
+  max_claude_calls_per_run: 30        # up to 4 candidates tried x (plan + write + review + revisions), 1 published
+  max_monthly_usd: 10                 # stop generating when the month's estimated spend reaches this
+  input_usd_per_mtok: 2.0             # Sonnet 5.5, claude.com/pricing (checked 2026-11-08)
+  output_usd_per_mtok: 10.0
+  # Also set a hard monthly limit in console.anthropic.com -> Settings -> Limits.
+
+analytics:
+  # Optional CTA click tracking (GA4). Leave empty to disable. Enabling adds Google Analytics to /blog/ pages
+  # only - publish a privacy policy disclosing it first.
+  ga4_measurement_id: ""             # the site has no privacy policy yet: add one before enabling
+  ga4_property_id: ""                # numeric GA4 property id, to read play_store_click counts into the daily report
+
+seo:
+  generate_meta_tags: true
+  generate_sitemap: true
+  add_internal_links: true
+  canonical_urls: true
+  monitor_search_console: true
+  search_console_property: "https://coolfontskeyboard.app/"
+  low_ctr_threshold: 0.015
+  min_impressions_for_improvement: 100
