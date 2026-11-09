@@ -1,7 +1,7 @@
 /* Opt-in analytics. Nothing loads, and no cookie is set, unless a GA4 ID is present below AND the visitor accepts.
    Measures page views and Play Store link clicks only. Text typed into generators is never sent. */
 (function () {
-  var ID = "";
+  var ID = "G-G5NSQ5X7RS";
   if (!/^G-[A-Z0-9]{4,12}$/.test(ID)) return;
   var KEY = "cf_analytics_choice", PLAY = "play.google.com/store/apps/details?id=com.sapkotamadhav.fonts.collections", loaded = false;
   function read() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
