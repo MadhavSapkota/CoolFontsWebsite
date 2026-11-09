@@ -1,6 +1,6 @@
 """Pull live Keyword Planner ideas from the Google Ads API into keywords/live_keywords.tsv.
 
-Keeps long-tail (3+ words), Low-competition keywords with 100-10,000 monthly searches (US, English).
+Keeps Low-competition keywords with 1,000+ monthly searches and no upper limit (US, English).
 Exit code: 0 = file refreshed, 1 = API/auth/empty-result failure (existing file is left untouched).
 
 Required env vars (never commit these; the repo is public):
@@ -20,7 +20,7 @@ SEEDS = ["kaomoji", "cute kaomoji", "text faces", "kawaii faces", "japanese emot
          "discord fonts", "aesthetic fonts", "fancy text", "cursive fonts", "instagram bio fonts",
          "font keyboard", "fonts keyboard android", "cool symbols", "bubble letters", "tiny text",
          "cute symbols", "whatsapp fonts", "tiktok fonts", "stylish text", "text art"]  # API max: 20
-MIN_SEARCHES, MAX_SEARCHES, MIN_WORDS = 100, 10000, 3
+MIN_SEARCHES, MIN_WORDS = 1000, 2
 
 
 def digits(value):
@@ -69,7 +69,7 @@ def filter_ideas(ideas, used):
         m = idea.get("keywordIdeaMetrics") or {}
         searches = int(m.get("avgMonthlySearches") or 0)  # int64 fields arrive as JSON strings
         if (len(keyword.split()) >= MIN_WORDS and keyword not in used and m.get("competition") == "LOW"
-                and MIN_SEARCHES <= searches <= MAX_SEARCHES):
+                and searches >= MIN_SEARCHES):
             rows[keyword] = (keyword, searches, int(m.get("competitionIndex") or 0))
     return sorted(rows.values(), key=lambda row: (-row[1], row[0]))
 
