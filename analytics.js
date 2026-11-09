@@ -32,7 +32,7 @@
     b.id = "cf-consent"; b.setAttribute("role", "region"); b.setAttribute("aria-label", "Analytics choice");
     b.style.cssText = "position:fixed;left:12px;right:12px;bottom:12px;z-index:50;max-width:460px;margin:auto;padding:14px 16px;border-radius:16px;background:#1f1a2e;color:#fff;font:14px/1.45 system-ui,sans-serif;box-shadow:0 8px 30px rgba(0,0,0,.3)";
     var p = document.createElement("div");
-    p.textContent = "May we use Google Analytics to count visits and Play Store clicks? No advertising. Text you type stays on your device.";
+    p.textContent = "May we use Google Analytics to count visits and Play Store clicks? Google may also use this for ad measurement. No personalized ads here. Text you type stays on your device.";
     var row = document.createElement("div"); row.style.cssText = "display:flex;gap:8px;margin-top:10px";
     [["Accept", "granted"], ["Decline", "denied"]].forEach(function (o) {
       var x = document.createElement("button"); x.type = "button"; x.textContent = o[0];
