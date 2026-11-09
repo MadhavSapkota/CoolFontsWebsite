@@ -274,15 +274,26 @@ function bigText(t, icon, bg) {
   const blank = p => Array.from(new Intl.Segmenter().segment(p), x => x.segment).map(c => isWide(c) ? "　" : " ").join("") || " ";
   const off = bg || blank(parts[0]);
   const G = bigSize === "small" ? GLYPHS_SM : GLYPHS, max = bigSize === "small" ? 12 : 8;
-  const chars = Array.from(t.toUpperCase()).filter(c => G[c] || c === " ").slice(0, max);
-  const rows = ["", "", "", "", ""];
+  let letters = 0; // spaces do not use up the letter limit
+  const chars = Array.from(t.toUpperCase().replace(/\s+/g, " ")).filter(c => (G[c] || c === " ") && (c === " " || ++letters <= max));
+  // Each word is its own block, stacked vertically, so the art fits page and chat widths without wrapping.
   let k = 0;
-  chars.forEach((c, i) => {
-    const g = (G[c] || G[" "]).split("|");
-    g.forEach((row, r) => { rows[r] += (i ? off : "") + Array.from(row).map(p => p === "#" ? parts[(k++) % parts.length] : off).join(""); });
+  const blocks = chars.join("").trim().split(" ").filter(Boolean).map(word => {
+    const rows = [[], [], [], [], []];
+    Array.from(word).forEach((c, i) => {
+      G[c].split("|").forEach((row, r) => {
+        if (i) rows[r].push(off);
+        Array.from(row).forEach(p => rows[r].push(p === "#" ? parts[(k++) % parts.length] : off));
+      });
+    });
+    return rows;
   });
-  if (bg) return rows.map(r => off + r + off).join("\n");
-  return rows.map(r => r.replace(/[\s　]+$/u, "")).join("\n");
+  if (bg) {
+    const width = Math.max(0, ...blocks.flat().map(r => r.length));
+    const line = cells => off + cells.join("") + off.repeat(width - cells.length + 1);
+    return blocks.map(b => b.map(line).join("\n")).join("\n" + off.repeat(width + 2) + "\n");
+  }
+  return blocks.map(b => b.map(r => r.join("").replace(/[\s　]+$/u, "")).join("\n")).join("\n\n");
 }
 let bigSize = "big", bigFirst = null;
 document.querySelectorAll("#big-size button").forEach(b => b.onclick = () => {
@@ -359,7 +370,17 @@ function renderBig() {
     d.querySelector(".name").textContent = icon + " " + n; d.querySelector("pre").textContent = out;
     d.onclick = () => copy(out); $("#bigs").appendChild(d);
   });
+  fitBig();
 }
+// Shrinks each preview so every letter is visible; the copied text is unchanged.
+function fitBig() {
+  const pres = [...document.querySelectorAll("#bigs pre")];
+  pres.forEach(p => { p.style.fontSize = ""; });
+  const sizes = pres.map(p => ({ p, base: parseFloat(getComputedStyle(p).fontSize), ratio: p.clientWidth / p.scrollWidth }));
+  sizes.forEach(({ p, base, ratio }) => { if (ratio < 1) p.style.fontSize = Math.max(4, base * ratio * 0.98) + "px"; });
+}
+let fitTimer;
+window.addEventListener("resize", () => { clearTimeout(fitTimer); fitTimer = setTimeout(fitBig, 150); });
 let bioTab = "Instagram";
 function bioText(tpl, font, name) {
   const fancyTag = s => s.replace(/#([A-Za-z0-9]+)/g, (m, w) => "#" + mapper(F.sansBold)(w));
