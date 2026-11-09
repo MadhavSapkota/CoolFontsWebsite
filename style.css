@@ -229,6 +229,13 @@ h1 em{font-size:1em;letter-spacing:inherit;color:inherit}
 .play{background:#d6125e;color:#fff;font-weight:700;padding:13px 30px}
 .play:hover{transform:none;background:#fff;color:#111}
 .app-icon,.app-icon:hover{transform:none;border-radius:44px}
+.input-box{align-items:center;gap:8px;border:1px solid var(--line);border-radius:12px;padding:6px 8px 6px 18px;min-height:56px}
+.input-box:hover{border-color:var(--muted)}
+.input-box:focus-within{border-color:var(--ink);box-shadow:none}
+.input-box textarea{font:500 clamp(1.05rem,1.5vw,1.25rem)/1.4 Manrope,sans-serif;letter-spacing:0;padding:4px 0}
+#clear{border:0;width:36px;height:36px;color:var(--muted);font-size:.9rem}
+#clear:hover{background:var(--soft);color:var(--ink)}
+#input:placeholder-shown~#clear{visibility:hidden}
 .top nav{min-width:0;overflow-x:auto;scrollbar-width:none;padding-bottom:6px;margin-bottom:-6px}
 .top nav a{flex:none}
 .top .logo,.top .get-app{flex:none}
