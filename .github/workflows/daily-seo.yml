@@ -94,14 +94,15 @@ jobs:
           git config user.name "seo-agent[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # Stage ONLY paths the agent owns or may safely edit.
-          git add blog sitemap.xml robots.txt seo-agent/data index.html
+          git add blog sitemap.xml robots.txt seo-agent/data index.html privacy.html
+          git status --short
           if git diff --cached --quiet; then
             echo "No changes today."
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git commit -m "SEO agent: daily update $(date -u +%F)"
-          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
           # Re-validate AFTER merging the latest remote state: fails (no push) if this would make 2 articles today.
           (cd seo-agent && python -m seo_agent.main check)
           git push origin "HEAD:${GITHUB_REF_NAME}"
