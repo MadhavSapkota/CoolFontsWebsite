@@ -19,7 +19,7 @@ Each run, prefer the cluster with the fewest posts so coverage grows evenly.
    **Keyword source:** if `GOOGLE_ADS_REFRESH_TOKEN` is set, run `python3 tools/ads_keywords.py` to refresh `keywords/live_keywords.tsv` from Keyword Planner and use that file; if the script exits non-zero, **stop: do not publish a post**, and report its error. If the variable is not set, use the saved Keyword Planner export `keywords/keywords.tsv` and say so in the research file.
 3. **Daily keyword research (do this every run, with WebSearch / WebFetch):**
    a. From the keyword source, keep **high-intent** keywords with **1,000 or more monthly searches (no upper limit)** and Low competition: the searcher wants fonts, text styles, kaomoji or symbols to use, a generator, a keyboard or app, or how to do something the app helps with. Exclude searches for downloadable font files, design typefaces, and informational topics the app cannot help with. Keep only keywords that are not in `keywords/used.txt` and don't have the same search intent as a published post ("cool letter fonts" and "letter fonts cool" are one topic). Sort by searches, highest first, and shortlist the top 5
-      plus fresh long-tail phrases from `keywords/ideas.txt`, from the cluster with the fewest posts.
+      Only use keywords with verified search volume. Publish at most ONE post per day.
    b. For each candidate, web-search it and look at the top ~10 results. Score the opportunity:
       - **Easy** if the top results include forums (Reddit, Quora), thin generator pages, small blogs, or pages that don't match the search intent.
       - **Hard** if the top results are all big authority sites with in-depth guides.
