@@ -35,3 +35,15 @@
 .cta{background:linear-gradient(135deg,#f97afc,#a043f5);color:#fff!important;font-weight:700;padding:12px 20px;border-radius:999px;white-space:nowrap;text-decoration:none!important}
 .faq details{border-bottom:1px solid var(--line);padding:12px 0}.faq summary{font-weight:700;cursor:pointer}.faq p{margin:8px 0 0}
 .small{font-size:.9rem;color:var(--muted)}
+
+.tool{margin:8px 0 36px;padding:20px;border:1px solid var(--line);border-radius:24px;background:var(--card)}
+.tool .tool-title{font-size:1.15rem;margin:0 0 10px}
+.tool-input{box-sizing:border-box;width:100%;font:inherit;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--bg,transparent);color:var(--ink);resize:vertical}
+.tool-list{display:grid;gap:8px;margin-top:12px;max-height:560px;overflow-y:auto}
+.tool-row{display:flex;align-items:center;gap:10px}
+.tool-out{flex:1;min-width:0}
+.tool-name{display:block;font-size:.75rem;color:var(--muted)}
+.tool-text{display:block;overflow-wrap:anywhere;line-height:1.5}
+.tool-copy,.tool-tab{font:inherit;font-size:.9rem;font-weight:700;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--acc-soft);color:var(--ink);cursor:pointer;white-space:nowrap}
+.tool-copy.ok,.tool-tab.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.tool-tabs{display:flex;flex-wrap:wrap;gap:6px}

@@ -98,7 +98,7 @@ def test_no_reference_project_text_left(cfg):
 
 
 def test_spending_cap_and_workflow_guards(cfg):
-    assert cfg.get("limits.max_monthly_usd") == 10 and cfg.get("publishing.max_new_articles_per_day") == 1
+    assert cfg.get("limits.max_monthly_usd") == 15 and cfg.get("publishing.max_new_articles_per_day") == 1
     wf = (cfg.root / ".github" / "workflows" / "daily-seo.yml").read_text()
     assert "concurrency:" in wf and "refs/heads/master" in wf and "pages/builds" in wf and "git add -A" not in wf
 

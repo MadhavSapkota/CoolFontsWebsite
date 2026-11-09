@@ -159,7 +159,7 @@ publishing:
 
 limits:                               # spending guardrails (checked before every Claude call)
   max_claude_calls_per_run: 30        # up to 4 candidates tried x (plan + write + review + revisions), 1 published
-  max_monthly_usd: 10                 # stop generating when the month's estimated spend reaches this
+  max_monthly_usd: 15                 # stop generating when the month's estimated spend reaches this
   input_usd_per_mtok: 2.0             # Sonnet 5.5, claude.com/pricing (checked 2026-11-08)
   output_usd_per_mtok: 10.0
   # Also set a hard monthly limit in console.anthropic.com -> Settings -> Limits.
@@ -179,3 +179,29 @@ seo:
   search_console_property: "https://coolfontskeyboard.app/"
   low_ctr_threshold: 0.015
   min_impressions_for_improvement: 100
+
+# Interactive generators shown above the article. A tool page is published through the normal pipeline,
+# so it counts as that day's one new page. ranking_opportunity is a heuristic, not measured difficulty.
+tools:
+  enabled: true
+  min_ranking_opportunity: 30      # tool keywords at or above this go ahead of plain articles, highest volume first
+  symbol_rules:
+    - {match: [heart symbol], preset: hearts}
+    - {match: [star symbol], preset: stars}
+    - {match: [arrow symbol], preset: arrows}
+    - {match: [sparkle symbol], preset: sparkles}
+    - {match: [flower symbol], preset: flowers}
+    - {match: [aesthetic symbol, cute symbol, cool symbol], preset: aesthetic}
+    - {match: [text symbol, symbol copy and paste, symbols copy and paste], preset: useful}
+  font_triggers: [generator, converter, maker, changer, copy and paste, copy paste]
+  font_rules:
+    - {match: [cursive], preset: cursive}
+    - {match: [bold], preset: bold}
+    - {match: [gothic, old english], preset: gothic}
+    - {match: [bubble], preset: bubble}
+    - {match: [tiny, small text, small caps], preset: tiny}
+    - {match: [glitch, zalgo], preset: glitch}
+    - {match: [upside down], preset: flip}
+    - {match: [instagram, tiktok, whatsapp, snapchat, facebook], preset: social}
+    - {match: [discord, roblox, gamer, gaming], preset: gaming}
+    - {match: [font, fancy text, stylish text, cool text, cool letters, text generator], preset: all}

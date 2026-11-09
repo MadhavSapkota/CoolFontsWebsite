@@ -35,6 +35,7 @@
   <a class="back" href="/blog/">← All articles</a>
   <h1>{{h1}}</h1>
   <p class="meta">Updated <time datetime="{{modified}}">{{modified_human}}</time> · {{reading_minutes}} min read</p>
+  {{tool_html}}
   <div class="body">
 {{body}}
   </div>
@@ -48,5 +49,6 @@
 </main>
 <footer><span class="logo"><img class="logo-img" src="/icon.png" alt=""><i>Cool</i>fonts</span><span>copy · paste · shine ✦ · <a href="/privacy.html">Privacy Policy</a></span></footer>
 <script>document.querySelectorAll('.k').forEach(b=>b.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(b.textContent);const t=b.textContent;b.textContent='Copied ✓';b.classList.add('ok');setTimeout(()=>{b.textContent=t;b.classList.remove('ok')},900)})</script>
+{{tool_script}}
 </body>
 </html>

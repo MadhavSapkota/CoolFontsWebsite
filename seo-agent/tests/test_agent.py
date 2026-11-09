@@ -311,3 +311,65 @@ def test_editorial_topics_when_enabled(site, monkeypatch):
     kw = st["keywords"]["how to choose a cute kaomoji for your bio"]
     assert kw["decision"].startswith("published") and kw["latest"]["volume"] is None
     assert kw["latest"]["source"] == "editorial (volume unverified)"
+
+
+def _cfg(site):
+    return config_mod.load_config(root=site)
+
+
+def test_tool_matching(site):
+    from seo_agent import tools
+    cfg = _cfg(site)
+    assert tools.tool_for(cfg, "heart symbol copy and paste") == {"kind": "symbols", "preset": "hearts"}
+    assert tools.tool_for(cfg, "cursive font generator") == {"kind": "fonts", "preset": "cursive"}
+    assert tools.tool_for(cfg, "discord font generator") == {"kind": "fonts", "preset": "gaming"}
+    assert tools.tool_for(cfg, "what is a font") is None  # no generator intent
+    assert tools.tool_for(cfg, "start symbol") is None    # "star" must match a whole word
+
+
+def test_tool_keywords_with_ranking_chance_go_first(site):
+    text = (site / "seo-agent" / "seo-config.yaml").read_text().replace("rank_by: score", "rank_by: volume")
+    (site / "seo-agent" / "seo-config.yaml").write_text(text)
+    cfg = _cfg(site)
+    c = [{"keyword": "kaomoji", "volume": 165000, "score": {"ranking_opportunity": 0}},
+         {"keyword": "copy and paste fonts", "volume": 165000, "score": {"ranking_opportunity": 15}},
+         {"keyword": "cute symbols copy and paste", "volume": 33100, "score": {"ranking_opportunity": 45}},
+         {"keyword": "heart symbol copy and paste", "volume": 110000, "score": {"ranking_opportunity": 30}}]
+    assert [i["keyword"] for i in research.order_by_cluster(c, {}, cfg)][:2] == ["heart symbol copy and paste", "cute symbols copy and paste"]
+
+
+def test_tool_page_renders_and_counts_toward_daily_limit(site, monkeypatch):
+    mock_apis(monkeypatch, ideas=[{"keyword": "how to type kaomoji on android", "volume": 880, "source": "google_ads_keyword_planner"}])
+    from seo_agent import tools
+    monkeypatch.setattr(tools, "tool_for", lambda cfg, kw: {"kind": "symbols", "preset": "hearts"})
+    assert main.main(["run"]) == 0
+    html = (site / "blog" / "how-to-type-kaomoji-on-android.html").read_text()
+    assert 'data-tool="symbols"' in html and "/blog/tools.js" in html and '"WebApplication"' in html
+    assert html.count("/analytics.js") == 1 and "googletagmanager" not in html
+    assert main.main(["run"]) == 0
+    assert len(articles(site)) == 1  # a tool page uses the single daily slot
+
+
+def test_state_compacts_and_stays_valid_json(site, monkeypatch):
+    cfg = _cfg(site)
+    from seo_agent import state as state_mod
+    s = state_mod.State.__new__(state_mod.State)
+    s.path = cfg.data_dir / "state.json"
+    s.data = {"version": 1, "articles": {}, "runs": [], "page_updates": [], "keywords": {}}
+    junk = {"volume": 10, "source": "x", "score_evidence": {"a": "b" * 500}, "feature": "symbols"}
+    for d in ("2026-11-01", "2026-11-02"):
+        monkeypatch.setenv("SEO_AGENT_TODAY", d)
+        s.record_keyword("low one", junk, "rejected_low_volume")
+    s.record_keyword("cand", {**junk, "score_evidence": {"keep": 1}}, "candidate")
+    s.record_keyword("bad draft", junk, "rejected_by_quality_gate: x")
+    monkeypatch.setenv("SEO_AGENT_TODAY", "2026-11-02")
+    s.save()
+    d = json.loads(s.path.read_text())
+    assert len(d["keywords"]["low one"]["history"]) == 1 and d["keywords"]["low one"]["history"][0]["date"] == "2026-11-02"
+    assert "score_evidence" not in d["keywords"]["low one"]["latest"] and d["keywords"]["low one"]["latest"]["volume"] == 10
+    assert "keep" in d["keywords"]["cand"]["latest"]["score_evidence"]
+    assert s.rejected_recently("bad draft")
+    monkeypatch.setenv("SEO_AGENT_TODAY", "2027-02-01")
+    s.save()
+    d = json.loads(s.path.read_text())
+    assert "low one" not in d["keywords"] and "cand" in d["keywords"] and "bad draft" in d["keywords"]

@@ -11,6 +11,7 @@ from typing import Any
 
 import nh3
 
+from . import tools
 from .audit import STOP, Page, resolve_internal, tokens
 from .config import Config
 from .log import log
@@ -94,6 +95,10 @@ def render_article(cfg: Config, a: dict[str, Any], related: list[dict[str, str]]
             {"@type": "ListItem", "position": 2, "name": "Blog", "item": f"{cfg.base_url}/{cfg.get('site.blog_dir')}/"},
             {"@type": "ListItem", "position": 3, "name": a["h1"], "item": url}]},
     ]
+    tool = a.get("tool")
+    if tool:
+        graph.append({"@type": "WebApplication", "name": a["h1"], "url": url, "applicationCategory": "UtilitiesApplication",
+                      "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}})
     if faqs:
         graph.append({"@type": "FAQPage", "mainEntity": [
             {"@type": "Question", "name": f["question"], "acceptedAnswer": {"@type": "Answer", "text": f["answer"]}} for f in faqs]})
@@ -110,29 +115,13 @@ def render_article(cfg: Config, a: dict[str, Any], related: list[dict[str, str]]
         "cta_button": conversion_agent.button_html(cfg, cta["button"], "end", a["slug"]),
         "feature_link": conversion_agent.landing_html(cfg, a),
         "analytics": analytics_snippet(cfg),
+        "tool_html": tools.widget_html(tool) if tool else "", "tool_script": tools.SCRIPT if tool else "",
     })
 
 
-SITE_GA_RE = re.compile(r"<!-- Google Analytics 4.*?</script>\s*<script async[^>]*></script>\s*<script>.*?</script>", re.S)
-
-
 def analytics_snippet(cfg: Config) -> str:
-    """GA4 for blog pages. Reuses the exact tag from index.html (Consent Mode v2, cookie banner and the
-    `play_store_click` event) so blog Play Store clicks are counted like the rest of the site.
-    Empty unless analytics.ga4_measurement_id is set."""
-    mid = cfg.get("analytics.ga4_measurement_id")
-    if not mid or not re.fullmatch(r"G-[A-Z0-9]{4,12}", str(mid)):
-        return ""
-    home = cfg.site_root / "index.html"
-    m = SITE_GA_RE.search(home.read_text(encoding="utf-8")[:20000]) if home.exists() else None
-    if m and mid in m.group(0):
-        return m.group(0)
-    return (f'<script async src="https://www.googletagmanager.com/gtag/js?id={mid}"></script>\n'
-            "<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}"
-            f"gtag('js',new Date());gtag('config','{mid}',{{anonymize_ip:true}});"
-            "document.addEventListener('click',function(e){var a=e.target.closest('a[data-cta]');if(!a)return;"
-            "gtag('event','play_store_click',{page_path:location.pathname,placement:a.dataset.placement||'',article:a.dataset.article||'',"
-            "link_url:a.href,transport_type:'beacon'});});</script>")
+    """Shared opt-in loader. /analytics.js does nothing without a GA4 ID and the visitor's Accept."""
+    return '<script src="/analytics.js" defer></script>'
 
 
 def pick_related(cfg: Config, articles: dict[str, Any], slug: str, n: int = 4) -> list[dict[str, str]]:

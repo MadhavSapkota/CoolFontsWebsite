@@ -7,6 +7,10 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any
 
+HISTORY_ROWS = 7
+REJECT_RETENTION_DAYS = 45
+SUMMARY_FIELDS = {"keyword", "volume", "source", "difficulty", "gsc_impressions_28d", "gsc_position", "ads_competition", "intent",
+                  "feature", "score_total"}
 DEFAULT: dict[str, Any] = {"version": 1, "keywords": {}, "articles": {}, "runs": [], "page_updates": []}
 
 
@@ -28,10 +32,13 @@ class State:
         entry["feature"] = metrics.get("feature") or entry.get("feature")
         if decision.startswith("published:"):
             entry["article"] = {"slug": decision.split(":", 1)[1], "published": today()}
-        entry["history"].append({"date": today(), "decision": decision,
-                                 **{k: metrics.get(k) for k in ("volume", "difficulty", "intent", "source", "feature", "score",
-                                                                "score_total", "gsc_impressions_28d", "gsc_position")}})
-        entry["history"] = entry["history"][-30:]
+        row = {"date": today(), "decision": decision, "volume": metrics.get("volume"), "score_total": metrics.get("score_total")}
+        last = entry["history"][-1] if entry["history"] else None
+        if last and last.get("decision") == decision and last.get("volume") == row["volume"]:
+            entry["history"][-1] = row  # unchanged result: move its date forward instead of adding a row
+        else:
+            entry["history"].append(row)
+        entry["history"] = entry["history"][-HISTORY_ROWS:]
 
     def used_keywords(self) -> set[str]:
         used = set()
@@ -61,10 +68,39 @@ class State:
         self.data["runs"].append({"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), **summary})
         self.data["runs"] = self.data["runs"][-120:]
 
+    def compact(self) -> None:
+        """Keeps state small: routine rejects keep only summary fields and age out; articles and live candidates are untouched."""
+        now = date.fromisoformat(today())
+        kept = {}
+        for kw, e in self.data["keywords"].items():
+            e["history"] = [{k: h.get(k) for k in ("date", "decision", "volume", "score_total")} for h in e.get("history", [])][-HISTORY_ROWS:]
+            d = str(e.get("decision", ""))
+            routine = d.startswith("rejected_") and not d.startswith("rejected_by_quality_gate")
+            if routine:
+                seen = e["history"][-1]["date"] if e["history"] else today()
+                if (now - date.fromisoformat(seen)).days > REJECT_RETENTION_DAYS:
+                    continue
+                e["latest"] = {k: v for k, v in (e.get("latest") or {}).items() if k in SUMMARY_FIELDS}
+            kept[kw] = e
+        self.data["keywords"] = kept
+
+    def _serialize(self) -> str:
+        """Valid JSON with one line per keyword, so daily git diffs stay small."""
+        one = lambda v: json.dumps(v, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+        parts = []
+        for key in sorted(self.data):
+            if key == "keywords":
+                rows = ",\n".join(f"{one(k)}:{one(self.data[key][k])}" for k in sorted(self.data[key]))
+                parts.append('"keywords":{\n' + rows + "\n}")
+            else:
+                parts.append(f"{one(key)}:{json.dumps(self.data[key], indent=1, sort_keys=True, ensure_ascii=False)}")
+        return "{\n" + ",\n".join(parts) + "\n}\n"
+
     def save(self) -> None:
+        self.compact()
         self.path.parent.mkdir(parents=True, exist_ok=True)
         tmp = self.path.with_suffix(".tmp")
-        tmp.write_text(json.dumps(self.data, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8")
+        tmp.write_text(self._serialize(), encoding="utf-8")
         os.replace(tmp, self.path)
 
 

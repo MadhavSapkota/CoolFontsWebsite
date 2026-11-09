@@ -247,7 +247,15 @@ def new_article(cfg, state: State, facts: dict, pages, perf, dry: bool, report: 
         links = ([land] if land else []) + \
                 [{"href": "/", "title": "Cool Fonts home"}] + \
                 [{"href": publisher.article_href(cfg, s), "title": a["h1"]} for s, a in articles.items()]
+        from . import tools
+        tool = tools.tool_for(cfg, kw["keyword"])
+        if tool:
+            plan["page_tool"] = tools.writer_note(tool)
+            attempt["tool"] = tool
+        tool_label = f" with {tool['kind']} generator ({tool['preset']})" if tool else ""
         a = writer_agent.write(cfg, kw, plan, serp, slug, links, facts)
+        if tool:
+            a["tool"] = tool
         a["cluster"] = kw["cluster"]
         a["feature"] = kw.get("feature")
         a, gate = draft_until_pass(cfg, kw, plan, slug, a, articles, pages, facts, attempt)
@@ -256,7 +264,8 @@ def new_article(cfg, state: State, facts: dict, pages, perf, dry: bool, report: 
             failed_features.add(kw["cluster"])
             continue
         if dry:
-            published.append(f"[dry-run] would publish {publisher.article_href(cfg, slug)}")
+            published.append(f"[dry-run] would publish {publisher.article_href(cfg, slug)} for '{kw['keyword']}' "
+                             f"({kw.get('volume')} searches){tool_label}")
             clusters_today.add(kw["cluster"])
             continue
         a["quality_gate"] = {k: gate[k] for k in ("word_count", "keyword_density", "warnings")} | \
@@ -265,7 +274,7 @@ def new_article(cfg, state: State, facts: dict, pages, perf, dry: bool, report: 
         editor_agent.publish(cfg, a, articles)
         state.record_keyword(kw["keyword"], kw, f"published:{slug}")
         published.append(f"published {publisher.article_href(cfg, slug)} for '{kw['keyword']}' (feature {kw.get('feature')}, "
-                         f"score {kw.get('score_total')}) after {a['quality_gate']['revisions']} revision(s)"
+                         f"score {kw.get('score_total')}){tool_label} after {a['quality_gate']['revisions']} revision(s)"
                          + (" + polish" if a["quality_gate"]["polished"] else ""))
         report["published_urls"] = report.get("published_urls", []) + [publisher.article_url(cfg, slug)]
         report["changes"].append(f"new article blog/{slug}.html")
