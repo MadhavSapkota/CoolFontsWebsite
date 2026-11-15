@@ -1,0 +1,30 @@
+{
+  "end_date": "2026-11-12",
+  "totals_7d": {
+    "clicks": 0,
+    "impressions": 3,
+    "ctr": 0.0
+  },
+  "totals_28d": {
+    "clicks": 0,
+    "impressions": 3,
+    "ctr": 0.0
+  },
+  "top_queries_28d": [],
+  "top_pages_28d": [
+    {
+      "page": "https://coolfontskeyboard.app/",
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 4.5
+    },
+    {
+      "page": "https://coolfontskeyboard.app/blog/fancy-text-generator.html",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 42
+    }
+  ]
+}
