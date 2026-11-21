@@ -1,0 +1,45 @@
+{
+  "end_date": "2026-11-18",
+  "totals_7d": {
+    "clicks": 0,
+    "impressions": 21,
+    "ctr": 0.0
+  },
+  "totals_28d": {
+    "clicks": 0,
+    "impressions": 23,
+    "ctr": 0.0
+  },
+  "top_queries_28d": [
+    {
+      "query": "keyboard with different fonts",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 56
+    }
+  ],
+  "top_pages_28d": [
+    {
+      "page": "https://coolfontskeyboard.app/",
+      "clicks": 0,
+      "impressions": 15,
+      "ctr": 0,
+      "position": 5.866666666666666
+    },
+    {
+      "page": "https://coolfontskeyboard.app/blog/cool-fonts-keyboard.html",
+      "clicks": 0,
+      "impressions": 7,
+      "ctr": 0,
+      "position": 33.857142857142854
+    },
+    {
+      "page": "https://coolfontskeyboard.app/blog/fancy-text-generator.html",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 42
+    }
+  ]
+}
