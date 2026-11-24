@@ -2129,6 +2129,13 @@
   "claude_calls": 5,
   "decision": "published /blog/kawaii-faces-copy-and-paste.html for 'kawaii faces copy and paste' (feature kaomoji, score 74.8) after 0 revision(s) + polish",
   "errors": 0
+ },
+ {
+  "at": "2026-11-24T23:49:57+00:00",
+  "changes": 0,
+  "claude_calls": 0,
+  "decision": "skip: daily article limit already reached today",
+  "errors": 0
  }
 ],
 "usage":{
