@@ -1,0 +1,73 @@
+{
+  "end_date": "2026-11-21",
+  "totals_7d": {
+    "clicks": 0,
+    "impressions": 27,
+    "ctr": 0.0
+  },
+  "totals_28d": {
+    "clicks": 0,
+    "impressions": 32,
+    "ctr": 0.0
+  },
+  "top_queries_28d": [
+    {
+      "query": "cool copy and paste fonts",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 54
+    },
+    {
+      "query": "how to type cool letters",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 28
+    },
+    {
+      "query": "keyboard with different fonts",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 56
+    },
+    {
+      "query": "\ud83c\udd52\ud83c\udd5e\ud83c\udd5e\ud83c\udd5b",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 10
+    }
+  ],
+  "top_pages_28d": [
+    {
+      "page": "https://coolfontskeyboard.app/",
+      "clicks": 0,
+      "impressions": 19,
+      "ctr": 0,
+      "position": 6.052631578947368
+    },
+    {
+      "page": "https://coolfontskeyboard.app/blog/cool-fonts-keyboard.html",
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 29.875
+    },
+    {
+      "page": "https://coolfontskeyboard.app/blog/fancy-text-generator.html",
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 25
+    },
+    {
+      "page": "https://coolfontskeyboard.app/blog/pretty-fonts-copy-and-paste.html",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 54
+    }
+  ]
+}
