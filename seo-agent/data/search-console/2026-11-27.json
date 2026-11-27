@@ -1,0 +1,220 @@
+{
+  "end_date": "2026-11-24",
+  "totals_7d": {
+    "clicks": 0,
+    "impressions": 94,
+    "ctr": 0.0
+  },
+  "totals_28d": {
+    "clicks": 0,
+    "impressions": 113,
+    "ctr": 0.0
+  },
+  "top_queries_28d": [
+    {
+      "query": "cute fonts copy paste",
+      "clicks": 0,
+      "impressions": 10,
+      "ctr": 0,
+      "position": 60.5
+    },
+    {
+      "query": "cool font copy and paste",
+      "clicks": 0,
+      "impressions": 7,
+      "ctr": 0,
+      "position": 50.57142857142857
+    },
+    {
+      "query": "cute fonts copy and paste",
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 53.333333333333336
+    },
+    {
+      "query": "pretty fonts",
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 66
+    },
+    {
+      "query": "cool fonts copy paste",
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 52.2
+    },
+    {
+      "query": "pretty letter fonts",
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 72.8
+    },
+    {
+      "query": "pretty font",
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 79.66666666666667
+    },
+    {
+      "query": "cool fonts copy and paste",
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 58
+    },
+    {
+      "query": "pretty writing fonts",
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 63
+    },
+    {
+      "query": "cool characters copy and paste",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 48
+    },
+    {
+      "query": "cool copy and paste fonts",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 54
+    },
+    {
+      "query": "cool font copy n paste",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 91
+    },
+    {
+      "query": "cool fonts to copy and paste",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 26
+    },
+    {
+      "query": "cool lettering copy and paste",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 88
+    },
+    {
+      "query": "cool lettering to copy and paste",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 87
+    },
+    {
+      "query": "cool letters to copy and paste",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 45
+    },
+    {
+      "query": "cool symbols in text",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 59
+    },
+    {
+      "query": "copy and paste fonts cute",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 70
+    },
+    {
+      "query": "cute copy and paste font",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 71
+    },
+    {
+      "query": "cute font copy and paste",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 77
+    },
+    {
+      "query": "cute font copy paste",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 66
+    },
+    {
+      "query": "cute font styles",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 54
+    },
+    {
+      "query": "cute fonts to copy and paste",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 73
+    },
+    {
+      "query": "cute text font",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 82
+    },
+    {
+      "query": "fonts to copy",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 49
+    }
+  ],
+  "top_pages_28d": [
+    {
+      "page": "https://coolfontskeyboard.app/blog/pretty-fonts-copy-and-paste.html",
+      "clicks": 0,
+      "impressions": 76,
+      "ctr": 0,
+      "position": 61
+    },
+    {
+      "page": "https://coolfontskeyboard.app/",
+      "clicks": 0,
+      "impressions": 25,
+      "ctr": 0,
+      "position": 12.04
+    },
+    {
+      "page": "https://coolfontskeyboard.app/blog/cool-fonts-keyboard.html",
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 29.875
+    },
+    {
+      "page": "https://coolfontskeyboard.app/blog/fancy-text-generator.html",
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 25
+    }
+  ]
+}
